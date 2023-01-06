@@ -13,6 +13,7 @@ public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitiali
         return new Class<?>[]{RootConfig.class, DatabaseConfig.class};
     }
 
+    /**/
     @Override
     protected Class<?>[] getServletConfigClasses() {
         return new Class<?>[]{ServletConfig.class};
