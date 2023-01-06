@@ -82,19 +82,6 @@ public class DatabaseConfig {
      * @return
      * @throws IOException
      */
-//    @Bean
-//    public SqlSessionFactoryBean sqlSessionFactoryBean(DataSource dataSource,
-//                                                       ApplicationContext applicationContext) throws IOException {
-//
-//        SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
-//
-//        factoryBean.setDataSource(dataSource);
-//        factoryBean.setConfigLocation(applicationContext.getResource("classpath:mybatis/configuration.xml"));
-//        factoryBean.setMapperLocations(applicationContext.getResources("classpath:mybatis/mappers/**/*.xml"));
-//
-//        return factoryBean;
-//    }
-
     @Bean
     public SqlSessionFactory sqlSessionFactory() throws Exception {
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();

@@ -1,40 +1,59 @@
 package com.admint.config;
 
-import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import java.util.List;
+import java.util.Properties;
+
+
+@Configuration
+@EnableWebMvc
+@ComponentScan(basePackages = {"com.admint.controller"})
+public class WebConfig implements WebMvcConfigurer {
+//    @Override
+//    public void configureViewResolvers(ViewResolverRegistry registry) {
+//        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+//        resolver.setPrefix("/WEB-INF/views/");
+//        resolver.setSuffix(".jsp");
+//        registry.viewResolver(resolver);
+//    }
+
+    @Override
+    public void configureViewResolvers(ViewResolverRegistry registry) {
+        registry.jsp("/WEB-INF/views/", ".jsp");
+    }
 /*
-* DispatcherServelet 설정
-*
-* */
 
-public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
-    protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[]{RootConfig.class, DatabaseConfig.class};
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
     }
-
-    /**/
-    @Override
-    protected Class<?>[] getServletConfigClasses() {
-        return new Class<?>[]{ServletConfig.class};
-    }
-
+*/
     /*
-    * DispathcerServlet에 매핑할 요청 주소를 세팅한다.
-    * */
-    @Override
-    protected String[] getServletMappings() {
-        return new String[]{"/"};
-    }
+    @Bean
+    HandlerExceptionResolver errorHandler () {
+        SimpleMappingExceptionResolver s =
+                new SimpleMappingExceptionResolver();
 
+        //exception to view name mapping
+        Properties p = new Properties();
+        p.setProperty(NullPointerException.class.getName(), "npeView");
+        p.setProperty(OrderIdNotValidException.class.getName(),
+                "OrderIdNotValidView");
+        s.setExceptionMappings(p);
 
-/*    @Override
-    protected Filter[] getServletFilters() {
-        return super.getServletFilters();
-    }
+        //mapping status code with view response.
+        s.addStatusCode("npeView", 404);
 
-    @Override
-    protected FilterRegistration.Dynamic registerServletFilter(ServletContext servletContext, Filter filter) {
-        return super.registerServletFilter(servletContext, filter);
+        //setting default error view
+        s.setDefaultErrorView("defaultErrorView");
+        //setting default status code
+        s.setDefaultStatusCode(400);
+
+        return s;
     }*/
 }
