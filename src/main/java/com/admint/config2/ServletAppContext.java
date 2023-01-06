@@ -20,6 +20,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 *  2. 스프링 컨테이너에서 Bean을 관리할 수 있게 된다.
 * */
 @Configuration
+/*
+* @Controller 어노테이션이 세팅되어 있는 클래스를 Controller로 등록해준다.
+* [참고 블로그](https://mangkyu.tistory.com/176)
+* @Enable
+* */
 @EnableWebMvc
 @ComponentScan()
 public class ServletAppContext implements WebMvcConfigurer {
